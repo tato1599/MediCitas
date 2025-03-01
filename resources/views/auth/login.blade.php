@@ -32,7 +32,10 @@
                     <span class="ms-2 text-sm text-gray-600">{{ __('Recuérdame') }}</span>
                 </label>
             </div>
-            <x-button class="mt-4 w-full bg-[#109CF1] hover:bg-[#0046B8] flex items-center justify-center text-white text-lg">
+            <x-button class="mt-4 w-full flex items-center
+            justify-center text-white text-sm font-work-sans
+
+            ">
                 {{ __('Iniciar sesión') }}
             </x-button>
 
