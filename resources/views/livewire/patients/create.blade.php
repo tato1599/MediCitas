@@ -1,32 +1,36 @@
-
 <div class="p-6">
+    <form wire:submit.prevent="store" class="bg-white shadow-md rounded-lg px-8 pt-6 pb-8 mb-4 space-y-4">
+        <div>
+            <label for="name" class="block text-gray-700 text-sm font-medium mb-2 font-sans">Nombre</label>
+            <input type="text" id="name" wire:model="name"
+                class="appearance-none border border-basic rounded w-full py-2 px-3 text-gray-800 font-sans leading-tight focus:outline-none focus:ring-2 focus:ring-primary transition"
+                required>
+        </div>
 
+        <div>
+            <label for="lastName" class="block text-gray-700 text-sm font-medium mb-2 font-sans">Apellidos</label>
+            <input type="text" id="lastName" wire:model="last_name"
+                class="appearance-none border border-basic rounded w-full py-2 px-3 text-gray-800 font-sans leading-tight focus:outline-none focus:ring-2 focus:ring-primary transition"
+                required>
+        </div>
 
-<form>
-    <div class="mb-4">
-        <label for="name" class="block text-gray-700 text-sm font-medium mb-2 font-sans">Nombre</label>
-        <input type="text" id="name" wire:model="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-basic leading-tight focus:border-basic border-basic" required>
-    </div>
-    <div class="mb-4">
-        <label for="lastName" class="block text-gray-700 text-sm font-medium mb-2 font-sans">Apellidos</label>
-        <input type="text" id="lastName" wire:model="lastName" class="shadow appearance-none border rounded w-full py-2 px-3 text-basic leading-tight focus:border-basic border-basic" required>
-    </div>
-    <div class="mb-4">
-        <label for="phone" class="block text-gray-700 text-sm font-medium mb-2 font-sans">Teléfono (Opcional)</label>
-        <input type="text" id="phone" wire:model="phone" class="shadow appearance-none border rounded w-full py-2 px-3 text-basic leading-tight  focus:border-basic border-basic" required>
-    </div>
-    <div class="mb-4">
-        <label for="email" class="block text-gray-700 text-sm font-medium mb-2 font-sans">Email (Opcional)</label>
-        <input type="email" id="email" wire:model="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-basic leading-tightfocus:border-basic border-basic " required>
-    </div>
-</form>
+        <div>
+            <label for="phone" class="block text-gray-700 text-sm font-medium mb-2 font-sans">Teléfono (Opcional)</label>
+            <input type="text" id="phone" wire:model="phone"
+                class="appearance-none border border-basic rounded w-full py-2 px-3 text-gray-800 font-sans leading-tight focus:outline-none focus:ring-2 focus:ring-primary transition">
+        </div>
 
-<div class="flex items-center w-full justify-between mt-4">
-    <button wire:click="store" class="bg-basic hover:bg-blue-700 text-white font-medium font-sans w-full py-2 rounded focus:outline-none focus:shadow-outline ">
-        Guardar
-    </button>
+        <div>
+            <label for="email" class="block text-gray-700 text-sm font-medium mb-2 font-sans">Email (Opcional)</label>
+            <input type="email" id="email" wire:model="email"
+                class="appearance-none border border-basic rounded w-full py-2 px-3 text-gray-800 font-sans leading-tight focus:outline-none focus:ring-2 focus:ring-primary transition">
+        </div>
 
+        <div class="flex justify-end pt-4">
+            <button type="submit"
+                class="bg-primary hover:bg-basic bg-basic text-white font-medium font-sans px-6 py-2 rounded shadow focus:outline-none focus:ring-2 focus:ring-primaryVariant transition w-full sm:w-auto">
+                Guardar
+            </button>
+        </div>
+    </form>
 </div>
-
-</div>
-
