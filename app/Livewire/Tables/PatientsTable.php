@@ -19,7 +19,7 @@ final class PatientsTable extends PowerGridComponent
     {
         return [
             PowerGrid::header()
-                ->showSearchInput(),
+                ->includeViewOnTop('patients.header-patients-table'),
             PowerGrid::footer()
                 ->showPerPage()
                 ->showRecordCount(),

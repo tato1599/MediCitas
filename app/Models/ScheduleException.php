@@ -3,18 +3,16 @@
 namespace App\Models;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 
-class Schedule extends Model
+class ScheduleException extends Model
 {
     protected $fillable = [
-        'name',
+        'user_id',
+        'date',
         'start',
         'duration',
-        'type',
-        'color',
     ];
 
     public function start(): Attribute
@@ -35,12 +33,19 @@ class Schedule extends Model
         );
     }
 
-    public function name(): Attribute
+    public function endDate(): Attribute
     {
         return Attribute::make(
-            set: function ($value) {
-                return ucwords(strtolower($value));
+            get: function (mixed $value, array $attributes) {
+                [$hours, $minutes] = explode(':', $attributes['duration']);
+
+                return Carbon::parse($attributes['date'] . ' ' . $attributes['start'])->addHours((int) $hours)->addMinutes((int) $minutes)->format('Y-m-d H:i');
             },
         );
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

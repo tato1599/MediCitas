@@ -17,12 +17,8 @@ return new class extends Migration
                 ->comment('References the ID of the employee associated with the schedule. Deletes the record if the employee is deleted.');
             $table->foreignId('schedule_id')->constrained()->onDelete('cascade')
                 ->comment('References the ID of the schedule assigned to the employee. Deletes the record if the schedule is deleted.');
-            $table->date('start_date')
-                ->comment('The start date of the schedule assignment.');
-            $table->date('end_date')
-                ->comment('The end date of the schedule assignment.');
-            $table->string('rrule')
-                ->comment('The rule that applies to the schedule assignment. This could be a specific set of rules or guidelines that govern the schedule.');
+            $table->string('day', 10)
+                ->comment('Specifies the day of the week for the schedule (e.g., Monday, Tuesday).');
             $table->timestamps();
         });
     }

@@ -4,18 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class UserSchedule extends Model
+class MealHours extends Model
 {
     protected $fillable = [
         'user_id',
-        'schedule_id',
+        'start',
         'day',
+        'created_by',
+        'updated_by',
     ];
-
-    public function schedule()
-    {
-        return $this->belongsTo(Schedule::class);
-    }
 
     public function user()
     {

@@ -19,8 +19,6 @@ return new class extends Migration
                 ->comment('The start time of the schedule.');
             $table->time('duration')
                 ->comment('The duration of the schedule.');
-            $table->string('type', 50)
-                ->comment('The type of schedule (e.g., meal, work, exception).');
             $table->string('color', 7)->default('#000000')
                 ->comment('HEX color code for visually representing the schedule. Defaults to black.');
             $table->softDeletes()

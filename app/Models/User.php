@@ -66,4 +66,16 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function mealHours()
+    {
+        return $this->hasMany(MealHours::class);
+    }
+
+    public function schedules()
+    {
+        return $this->belongsToMany(Schedule::class, 'employee_schedules', 'user_id', 'schedule_id')
+            ->withPivot('day')
+            ->withTimestamps();
+    }
 }
