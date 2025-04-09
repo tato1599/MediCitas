@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class Schedule extends Model
@@ -20,8 +21,18 @@ class Schedule extends Model
             ->withPivot(['id', 'start_date', 'end_date', 'rrule']);
     }
 
-    public function scopeMeals()
+    public function scopeMeals(Builder $query)
     {
+        $query->where('type', 'meal');
+    }
 
+    public function scopeWork(Builder $query)
+    {
+        $query->where('type', 'work');
+    }
+
+    public function scopeExceptions(Builder $query)
+    {
+        $query->where('type', 'exception');
     }
 }
