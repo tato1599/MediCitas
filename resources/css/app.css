@@ -14,6 +14,12 @@
     'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
  --font-work-sans: 'Work Sans', ui-sans-serif, system-ui, sans-serif;
 
+ --color-basic: #109CF1;
+ --color-gray-basic: #69686A;
+ --color-secondary-blue: #F2F9FF;
+ --color-light-gray: #F5F6F8;
+--color-basic-color-variant: #0061FF;
+
 }
 
 /*
