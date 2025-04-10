@@ -43,5 +43,7 @@
         @stack('modals')
 
         @livewireScripts
+        <x-toast />
+
     </body>
 </html>

@@ -13,7 +13,7 @@
         </svg>
 
         <input
-            wire:model.debounce.300ms="search"
+            wire:model.live="search"
             type="text"
             placeholder="Buscar Pacientes..."
             class="w-full bg-white text-basic placeholder:text-gray-500 placeholder:italic font-sans border-none outline-none focus:ring-0 focus:outline-none focus:border-none"

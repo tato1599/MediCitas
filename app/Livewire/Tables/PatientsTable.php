@@ -40,24 +40,39 @@ final class PatientsTable extends PowerGridComponent
     {
         return PowerGrid::fields()
             ->add('id')
+            ->add('first_name')
+            ->add('last_name')
+            ->add('email')
+            ->add('phone')
+            ->add('dob')
             ->add('created_at');
     }
 
     public function columns(): array
     {
         return [
-            Column::make('Id', 'id')
+
+            Column::make('Nombres', 'first_name')
+                ->sortable()
+                ->searchable(),
+            Column::make('Apellidos', 'last_name')
+                ->sortable()
+                ->searchable(),
+            Column::make('Correo', 'email')
+                ->sortable()
+                ->searchable(),
+            Column::make('Celular', 'phone')
+                ->sortable()
+                ->searchable(),
+            Column::make('Fecha de nacimiento', 'dob')
                 ->sortable()
                 ->searchable(),
 
-            Column::make('Created at', 'created_at_formatted', 'created_at')
-                ->sortable(),
-
-            Column::make('Created at', 'created_at')
+            Column::make('Fecha de creación', 'created_at')
                 ->sortable()
                 ->searchable(),
 
-            Column::action('Action')
+            Column::action('Opciones')
         ];
     }
 
@@ -77,10 +92,13 @@ final class PatientsTable extends PowerGridComponent
     {
         return [
             Button::add('edit')
-                ->slot('Edit: '.$row->id)
-                ->id()
-                ->class('btn btn-primary')
-                ->dispatch('edit', ['rowId' => $row->id])
+            ->slot('
+                <svg xmlns="http://www.w3.org/2000/svg" class="inline w-7 h-7 me-1" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M4 21h17v-2H4v2zm3-4.5 10-10L15.5 4 5.5 14l-1.5 4 4-1.5z"/>
+                </svg>
+            ')
+            ->class('text-basic hover:text-black')
+
         ];
     }
 
