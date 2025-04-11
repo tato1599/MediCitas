@@ -8,6 +8,7 @@ use App\Models\ScheduleException;
 use App\Models\User;
 use App\Models\UserSchedule;
 use App\Models\Vacation;
+use App\Traits\AddsToast;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -15,6 +16,8 @@ use Livewire\Component;
 
 class Index extends Component
 {
+    use AddsToast;
+
     public $calendarStart;
 
     public $calendarEnd;
@@ -393,10 +396,7 @@ class Index extends Component
 
         $this->fetchSchedules();
         // $this->toast('success', 'Horario creado exitosamente');
-        $this->js('Toast.fire({
-            icon: "success",
-            title: "Horario creado exitosamente",
-        })');
+        $this->addToast('Horario creado', 'Horario creado exitosamente', 'success', false);
     }
 
     public function save()
@@ -484,17 +484,13 @@ class Index extends Component
         } catch (\Exception $e) {
             DB::rollBack();
             dd($e);
-            $this->js('Toast.fire({
-                icon: "error",
-                title: "Ocurrió un error al guardar los horarios",
-            })');
+            $this->addToast('Error', 'Ocurrió un error al guardar los horarios', 'error', false);
 
             return;
         }
-        $this->js('Toast.fire({
-            icon: "success",
-            title: "Horarios guardados exitosamente",
-        })');
+
+        $this->addToast('Horarios guardados', 'Los horarios fueron guardados exitosamente', 'success', false);
+
     }
 
     public function render()
