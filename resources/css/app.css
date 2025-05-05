@@ -1,4 +1,6 @@
 @import 'tailwindcss';
+/* @import '../../vendor/power-components/livewire-powergrid/resources/css/tailwind4.css'; */
+
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 
@@ -7,13 +9,30 @@
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../vendor/laravel/jetstream/**/*.blade.php';
+@source '../../app/Livewire/*Table.php';
+@source '../../app/Livewire/**/*Table.php';
+@source '../../vendor/power-components/livewire-powergrid/src/Themes/Tailwind.php';
+@source '../../vendor/power-components/livewire-powergrid/resources/views/**/*.php';
+
 
 @theme {
   --font-sans:
     Figtree, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
     'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
- --font-work-sans: 'Work Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-work-sans: 'Work Sans', ui-sans-serif, system-ui, sans-serif;
 
+  --color-basic: #109CF1;
+  --color-gray-basic: #69686A;
+  --color-secondary-blue: #F2F9FF;
+  --color-light-gray: #F5F6F8;
+  --color-basic-color-variant: #0061FF;
+  --color-meal: #FFCC80;
+  --color-meal-hover: #FFB74D;
+  --color-work-hour: #09A7ED;
+  --color-work-hour-hover: #0E6BC0;
+  --color-work-exception: #CDC1FF;
+  --color-work-exception-hover: #A391F7;
+  --color-vacation: #BCFDFF;
 }
 
 /*
@@ -25,6 +44,7 @@
   color utility to any element that depends on these defaults.
 */
 @layer base {
+
   *,
   ::after,
   ::before,
@@ -35,5 +55,37 @@
 }
 
 [x-cloak] {
-    display: none;
+  display: none;
+}
+
+.colored-toast.swal2-icon-success {
+  background-color: #a5dc86 !important;
+}
+
+.colored-toast.swal2-icon-error {
+  background-color: #f27474 !important;
+}
+
+.colored-toast.swal2-icon-warning {
+  background-color: #f8bb86 !important;
+}
+
+.colored-toast.swal2-icon-info {
+  background-color: #3fc3ee !important;
+}
+
+.colored-toast.swal2-icon-question {
+  background-color: #87adbd !important;
+}
+
+.colored-toast .swal2-title {
+  color: white;
+}
+
+.colored-toast .swal2-close {
+  color: white;
+}
+
+.colored-toast .swal2-html-container {
+  color: white;
 }
