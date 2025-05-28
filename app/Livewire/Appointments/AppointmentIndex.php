@@ -84,11 +84,11 @@ class AppointmentIndex extends Component
 
     public function createAppointment($date)
     {
-        $this->redirect(route('web.appointments.create', ['date' => $date, 'doctorId' => $this->doctorId]));
+        $this->redirect(route('appointments.create', ['date' => $date, 'doctorId' => $this->doctorId]));
     }
 
     public function updateAppointment($appointmentId)
     {
-        $this->redirect(route('web.appointments.update', ['appointment' => $appointmentId]));
+        $this->redirect(route('appointments.update', ['appointment' => $appointmentId]));
     }
 }
