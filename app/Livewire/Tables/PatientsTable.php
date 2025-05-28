@@ -78,26 +78,25 @@ final class PatientsTable extends PowerGridComponent
 
     public function filters(): array
     {
-        return [
-        ];
+        return [];
     }
 
     #[\Livewire\Attributes\On('edit')]
     public function edit($rowId): void
     {
-        $this->js('alert('.$rowId.')');
+        $this->js('alert(' . $rowId . ')');
     }
 
     public function actions(Patient $row): array
     {
         return [
             Button::add('edit')
-            ->slot('
+                ->slot('
                 <svg xmlns="http://www.w3.org/2000/svg" class="inline w-7 h-7 me-1" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M4 21h17v-2H4v2zm3-4.5 10-10L15.5 4 5.5 14l-1.5 4 4-1.5z"/>
                 </svg>
             ')
-            ->class('text-basic hover:text-black')
+                ->class('text-basic hover:text-black')
 
         ];
     }
