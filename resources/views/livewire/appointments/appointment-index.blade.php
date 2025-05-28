@@ -68,6 +68,7 @@
                 },
                 eventClick: function(info) {
                     const props = info.event.extendedProps;
+                    console.log(props);
                     // html showing: status, duration, type, doctor, datetime
                     const html = `
                         <div class="flex flex-col text-sm md:text-base lg:text-lg">

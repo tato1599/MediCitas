@@ -61,14 +61,14 @@ class AppointmentIndex extends Component
             $patient = $appointment->patient;
 
             return [
-                'title' => 'Cita con ' . $patient->full_name,
+                'title' => 'Cita con ' . $patient->first_name . ' ' . $patient->last_name,
                 'start' => $appointment->start_time,
                 'end' => $appointment->estimated_end_time,
                 'color' => $colors[$appointment->status],
                 'backgroundColor' => $colors[$appointment->status],
                 'extendedProps' => [
                     'id' => $appointment->id,
-                    'patient' => $patient->full_name,
+                    'patient' => $patient->first_name . ' ' . $patient->last_name,
                     'status' => ucfirst(strtolower(AppointmentStatus::fromValue($appointment->status)->name)),
                     'duration' => $appointment->duration,
                     'type' => $appointment->appointmentType->name,

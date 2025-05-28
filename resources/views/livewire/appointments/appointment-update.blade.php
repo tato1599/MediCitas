@@ -1,4 +1,4 @@
-<div class="p-6 bg-white rounded-lg shadow-lg mt-4 mb-4 mr-4 ml-4">
+<div class="p-6">
     <h1 class="text-2xl font-bold mb-6 text-gray-800">Actualizar Cita</h1>
     <div class="bg-gray-50 p-4 rounded-lg shadow-sm border border-gray-200">
         <div class="grid gap-4">

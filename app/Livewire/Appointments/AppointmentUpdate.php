@@ -4,6 +4,7 @@ namespace App\Livewire\Appointments;
 
 use App\Enums\AppointmentStatus;
 use App\Models\Appointment;
+use App\Traits\AddsToast;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -17,7 +18,7 @@ use Mary\Traits\Toast;
 #[Layout('layouts.app')]
 class AppointmentUpdate extends Component
 {
-    use Toast;
+    use Toast, AddsToast;
 
     public Appointment $appointment;
 
@@ -27,11 +28,14 @@ class AppointmentUpdate extends Component
 
     public $real_end_time;
 
-    public function mount($appointmentId)
+    public function mount($appointment)
     {
-        $this->appointment = Appointment::with(['patient', 'location', 'appointmentType', 'employee'])->findOrFail($appointmentId);
+        $appointment = Appointment::with(['patient', 'appointmentType', 'employee'])
+            ->find($appointment)
+            ->first();
+        $this->appointment = $appointment;
         $this->current_status = ucwords(strtolower(AppointmentStatus::fromValue($this->appointment->status)->name));
-        $this->statuses = collect(AppointmentStatus::toLiveWireArray())
+        $this->statuses = collect(AppointmentStatus::toLiveWireArray(usingValueAsName: false))
             ->filter(function ($status) {
                 if ($this->appointment->status === $status['id']) {
                     return true;
@@ -67,14 +71,25 @@ class AppointmentUpdate extends Component
             $this->appointment->status = $status;
             $this->appointment->notes = $notes;
             if ($status === AppointmentStatus::REALIZADO->value) {
-                $this->appointment->real_end_time = $endTime;
+                // dd($endTime, $this->appointment->start_time);
+                $endTime = preg_replace("/\d{2}:\d{2}(\d{2})?/", $endTime, $this->appointment->start_time);
+                $startTime = Carbon::parse($this->appointment->start_time);
+                $endTime = Carbon::parse($endTime);
+                if ($endTime->isBefore($startTime)) {
+                    throw ValidationException::withMessages(['endTime' => 'La hora de finalización debe ser posterior a la hora de inicio']);
+                }
+                $this->appointment->real_end_time = Carbon::parse($this->appointment->start_time);
             }
             $this->appointment->save();
-            $this->toast('success', 'Estado actualizado correctamente', redirectTo: route('web.appointments.index'));
+            // $this->toast('success', 'Estado actualizado correctamente', redirectTo: route('web.appointments.index'));
+            $this->addToast('Éxito', 'Estado actualizado correctamente', 'success', true);
+            $this->redirect(route('appointments.index'));
         } catch (ValidationException $e) {
-            $this->toast('error', $e->getMessage(), css: 'bg-red-500');
+            // $this->toast('error', $e->getMessage(), css: 'bg-red-500');
+            $this->addToast('Error: ', $e->getMessage(), 'error');
         } catch (\Exception $e) {
-            $this->toast('error', 'Ocurrió un error al actualizar el estado', css: 'bg-red-500');
+            // $this->toast('error', 'Ocurrió un error al actualizar el estado', css: 'bg-red-500');
+            $this->addToast('Error', 'Ocurrió un error al actualizar el estado', 'error');
         }
     }
 
@@ -111,13 +126,18 @@ class AppointmentUpdate extends Component
             $newAppointment->save();
             $this->appointment->save();
             DB::commit();
-            $this->toast('success', 'Cita reprogramada correctamente', redirectTo: route('web.appointments.index'));
+
+            $this->addToast('Éxito', 'Cita reprogramada correctamente', 'success', true);
+            $this->redirect(route('appointments.index'));
         } catch (ValidationException $e) {
             DB::rollBack();
-            $this->toast('error', $e->getMessage(), css: 'bg-red-500');
+            $this->addToast('Error', $e->getMessage(), 'error');
         } catch (\Exception $e) {
             DB::rollBack();
-            $this->toast('error', 'Ocurrió un error al reprogramar la cita', css: 'bg-red-500');
+            $this->addToast('Error', 'Ocurrió un error al reagendar la cita', 'error');
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            $this->addToast('Error', 'Ocurrió un error inesperado', 'error');
         }
     }
 }

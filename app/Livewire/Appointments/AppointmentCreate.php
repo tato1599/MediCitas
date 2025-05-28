@@ -7,16 +7,18 @@ use App\Models\AppointmentType;
 use App\Models\Patient;
 use App\Traits\AddsToast;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
+use Mary\Traits\Toast;
 
 #[Title('Crear Cita Médica')]
 #[Layout('layouts.app')]
 class AppointmentCreate extends Component
 {
-    use AddsToast;
+    use AddsToast, Toast;
 
     public $appointmentTypes;
 
@@ -32,8 +34,10 @@ class AppointmentCreate extends Component
 
     public string $startTime;
 
-    public function mount(?string $date = null, ?int $doctorId = null)
+    public function mount(Request $request)
     {
+        $date = $request->get('date');
+        $doctorId = $request->get('doctorId');
         $this->search('a');
         $this->getAppointmentTypes();
 
@@ -93,9 +97,8 @@ class AppointmentCreate extends Component
             $this->validate([
                 'date' => 'required|date',
                 'doctorId' => 'required|integer',
-                'locationId' => 'required|integer',
                 'appointmentTypeId' => 'required|integer',
-                'patientId' => 'required|uuid',
+                'patientId' => 'required|integer',
                 'startTime' => 'required',
             ]);
 
@@ -117,14 +120,16 @@ class AppointmentCreate extends Component
                 throw new \Exception('Error al crear la cita');
             }
 
-            $this->toast('success', 'Cita creada correctamente', redirectTo: route('web.appointments.index'));
+            // $this->toast('success', 'Cita creada correctamente', redirectTo: route('web.appointments.index'));
+            $this->addToast('Éxito', 'Cita creada correctamente', 'success', true);
+            $this->redirect(route('appointments.index'));
         } catch (\Illuminate\Validation\ValidationException $e) {
             $reason = $e->validator->errors()->first();
             // $this->toast('error', $reason, css: 'bg-red-500');
             $this->addToast('Error', $reason, 'error');
         } catch (\Exception $e) {
             // $this->toast('error', 'Error al crear la cita: ' . $e->getMessage(), css: 'bg-red-500');
-            $this->addToast('Error', 'Error al crear la cita: ' . $e->getMessage(), 'error');
+            $this->addToast('Error', 'Error al crear la cita', 'error');
         }
     }
 }
