@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -20,6 +21,8 @@ return new class extends Migration
             $table->date('dob')->nullable();
             $table->timestamps();
         });
+
+        DB::unprepared('CREATE INDEX patients_names_gin_idx ON patients USING gin(first_name gin_trgm_ops, last_name gin_trgm_ops);');
     }
 
     /**
