@@ -14,6 +14,7 @@ return new class extends Migration
     {
         Schema::create('patients', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('team_id')->constrained()->onDelete('cascade'); // 👈 aquí
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email')->nullable()->unique();
@@ -21,6 +22,7 @@ return new class extends Migration
             $table->date('dob')->nullable();
             $table->timestamps();
         });
+
 
         DB::unprepared('CREATE INDEX patients_names_gin_idx ON patients USING gin(first_name gin_trgm_ops, last_name gin_trgm_ops);');
     }

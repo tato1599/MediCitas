@@ -19,12 +19,7 @@
         <div class="relative flex flex-col items-center justify-center selection:bg-[#FF2D20] selection:text-white">
             <div>
                 <header class="w-full bg-white border-b border-gray-200 ">
-                    <div class="flex justify-end items-center py-2 px-4 bg-gray-50 lg:px-6 lg:hidden ">
-                        <a href="#" class="mr-2 text-sm font-medium text-gray-500 hover:underline ">
-                            Hablar con ventas
-                        </a>
 
-                    </div>
                     <nav class="bg-white border-gray-200 px-4 lg:px-6 py-2.5 ">
                         <div class="grid grid-cols-3 items-center mx-auto">
                             <a href="https://flowbite.com" class="flex items-center lg:justify-center lg:order-2">
@@ -35,7 +30,7 @@
                             <div class="flex col-span-2 justify-end items-center lg:order-3 lg:col-span-1">
                                 <a href="#"
                                     class="hidden mr-2 text-sm font-medium text-gray-500 hover:underline  lg:inline">
-                                    Hablar con ventas
+                                    Comienza ahora
                                 </a>
                                 <a href="#"
                                     class="hidden items-center p-2 text-sm font-medium text-gray-500 rounded-lg lg:inline-flex  hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 :bg-gray-700 focus:outline-none :ring-gray-800">
@@ -68,12 +63,7 @@
                                                 Iniciar sesión
                                             </a>
 
-                                            @if (Route::has('register'))
-                                                <a href="{{ route('register') }}"
-                                                    class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-hidden focus-visible:ring-[#FF2D20] ">
-                                                    Registrarse
-                                                </a>
-                                            @endif
+
                                         @endauth
                                     </nav>
                                 @endif
@@ -100,7 +90,7 @@
                                 id="mobile-menu-2">
                                 <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
                                     <li>
-                                        <a href="#"
+                                        <a href="/#inicio"
                                             class="block py-2 pr-4 pl-3 border-b border-gray-100 text-primary-600  hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:p-0 :bg-gray-700 :text-primary-500 lg::bg-transparent "
                                             aria-current="page">Inicio</a>
                                     </li>
@@ -111,7 +101,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#"
+                                        <a href="/#precios"
                                             class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0  lg::text-white :bg-gray-700 :text-white lg::bg-transparent ">
                                             Precios
                                         </a>
@@ -162,10 +152,11 @@
                     </div>
                 </section>
 
-                <x-resources />
+                <x-resources id="Recursos" name="recursos" />
 
 
-                <x-pricing />
+                <x-pricing id="precios" name="pricing" />
+
 
                 <x-footer />
 

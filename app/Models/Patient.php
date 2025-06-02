@@ -10,15 +10,18 @@ class Patient extends Model
     use HasFactory;
 
     protected $fillable = [
-        'first_name',
-        'last_name',
-        'email',
-        'phone',
-        'dob'
+        'first_name', 'last_name', 'email', 'phone', 'dob', 'team_id',
     ];
+
 
     public function appointments()
     {
         return $this->hasMany(Appointment::class);
     }
+
+    public function team()
+{
+    return $this->belongsTo(Team::class);
+}
+
 }

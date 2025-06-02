@@ -1,26 +1,78 @@
-
-<section class="bg-white"
-name="Recursos"
-id="Recursos"
-
->
-<div class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
-
-    <div class="mr-auto place-self-center lg:col-span-7">
-        <h1 class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl ">
-            Simplifica tus citas
-        </h1>
-        <p class="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl ">
-            Con nuestra plataforma, puedes gestionar tus citas de manera eficiente y sin complicaciones. Desde la programación hasta el seguimiento, tenemos todo cubierto para que puedas centrarte en lo que realmente importa: tu negocio.
+<section id="recursos" class="bg-white py-16">
+    <div class="max-w-screen-xl mx-auto px-4 text-center">
+        <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">
+            Todo lo que necesitas para gestionar tus citas médicas
+        </h2>
+        <p class="text-gray-600 text-lg mb-12 max-w-3xl mx-auto">
+            Nuestra plataforma ofrece herramientas esenciales para médicos, clínicas y pacientes, diseñadas para ahorrar tiempo, reducir errores y brindar una mejor atención.
         </p>
-        <a href="#" class="inline-flex items-center justify-center px-5 py-3 mr-3 text-basic font-medium text-center  rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 ">
-            Empezar
-            <svg class="w-5 h-5 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1
-            0 010-1.414z" clip-rule="evenodd"></path></svg>
-        </a>
-        <a href="#" class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100   ">
-            Habla con nuestro equipo de ventas
-        </a>
+
+        <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+            <!-- Recurso 1 -->
+            <div class="bg-white p-6 rounded-lg shadow hover:shadow-md transition">
+                <div class="flex items-center justify-center w-12 h-12 mb-4 bg-primary-100 rounded-full text-primary-700">
+                    📅
+                </div>
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">Agenda Inteligente</h3>
+                <p class="text-gray-600 text-sm">
+                    Organiza tus citas con recordatorios automáticos y evita solapamientos entre horarios.
+                </p>
+            </div>
+
+            <!-- Recurso 2 -->
+            <div class="bg-white p-6 rounded-lg shadow hover:shadow-md transition">
+                <div class="flex items-center justify-center w-12 h-12 mb-4 bg-primary-100 rounded-full text-primary-700">
+                    🧾
+                </div>
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">Expediente Digital</h3>
+                <p class="text-gray-600 text-sm">
+                    Lleva el historial clínico de tus pacientes de forma digital, segura y siempre accesible.
+                </p>
+            </div>
+
+            <!-- Recurso 3 -->
+            <div class="bg-white p-6 rounded-lg shadow hover:shadow-md transition">
+                <div class="flex items-center justify-center w-12 h-12 mb-4 bg-primary-100 rounded-full text-primary-700">
+                    🔔
+                </div>
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">Notificaciones Automatizadas</h3>
+                <p class="text-gray-600 text-sm">
+                    Tus pacientes recibirán recordatorios por correo o SMS antes de cada consulta.
+                </p>
+            </div>
+
+            <!-- Recurso 4 -->
+            <div class="bg-white p-6 rounded-lg shadow hover:shadow-md transition">
+                <div class="flex items-center justify-center w-12 h-12 mb-4 bg-primary-100 rounded-full text-primary-700">
+                    👥
+                </div>
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">Gestión de Pacientes</h3>
+                <p class="text-gray-600 text-sm">
+                    Administra tu base de pacientes con filtros, historial y notas clínicas personalizadas.
+                </p>
+            </div>
+
+            <!-- Recurso 5 -->
+            <div class="bg-white p-6 rounded-lg shadow hover:shadow-md transition">
+                <div class="flex items-center justify-center w-12 h-12 mb-4 bg-primary-100 rounded-full text-primary-700">
+                    📊
+                </div>
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">Reportes en Tiempo Real</h3>
+                <p class="text-gray-600 text-sm">
+                    Visualiza métricas de asistencia, cancelaciones, ingresos y rendimiento general.
+                </p>
+            </div>
+
+            <!-- Recurso 6 -->
+            <div class="bg-white p-6 rounded-lg shadow hover:shadow-md transition">
+                <div class="flex items-center justify-center w-12 h-12 mb-4 bg-primary-100 rounded-full text-primary-700">
+                    🔒
+                </div>
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">Seguridad de Datos</h3>
+                <p class="text-gray-600 text-sm">
+                    Toda la información está cifrada y respaldada para cumplir con normativas de salud.
+                </p>
+            </div>
+        </div>
     </div>
-</div>
 </section>

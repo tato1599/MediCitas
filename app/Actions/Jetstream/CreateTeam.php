@@ -6,6 +6,7 @@ use App\Models\Team;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 use Laravel\Jetstream\Contracts\CreatesTeams;
 use Laravel\Jetstream\Events\AddingTeam;
 use Laravel\Jetstream\Jetstream;
@@ -19,6 +20,12 @@ class CreateTeam implements CreatesTeams
      */
     public function create(User $user, array $input): Team
     {
+        if ($user->ownedTeams()->count() >= 1) {
+            throw ValidationException::withMessages([
+                'team' => ['Solo puedes crear un equipo.'],
+            ]);
+        }
+
         Gate::forUser($user)->authorize('create', Jetstream::newTeamModel());
 
         Validator::make($input, [
