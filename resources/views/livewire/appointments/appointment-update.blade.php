@@ -4,7 +4,8 @@
         <div class="grid gap-4">
             <div class="flex items-center space-x-4">
                 <span class="text-sm font-semibold text-gray-600">Paciente:</span>
-                <p class="text-gray-800 font-medium">{{ $appointment->patient->full_name }}</p>
+                <p class="text-gray-800 font-medium">
+                    {{ $appointment->patient->first_name . ' ' . $appointment->patient->first_name }}</p>
             </div>
             <div class="flex items-center space-x-4">
                 <span class="text-sm font-semibold text-gray-600">Tipo de cita:</span>

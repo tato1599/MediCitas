@@ -5,10 +5,12 @@ namespace App\Livewire\Appointments;
 use App\Models\Appointment;
 use App\Models\AppointmentType;
 use App\Models\Patient;
+use App\Services\CalendarEventService;
 use App\Traits\AddsToast;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -34,6 +36,8 @@ class AppointmentCreate extends Component
 
     public string $startTime;
 
+    protected CalendarEventService $calendarEventService;
+
     public function mount(Request $request)
     {
         $date = $request->get('date');
@@ -45,6 +49,14 @@ class AppointmentCreate extends Component
         $this->date = $parsedDate->format('Y-m-d');
         $this->startTime = $parsedDate->format('H:i');
         $this->doctorId = $doctorId;
+    }
+
+    public function boot()
+    {
+        $user = Auth::user();
+        if (!empty($user->google_id)) {
+            $this->calendarEventService = new CalendarEventService();
+        }
     }
 
     public function search(string $value = '')
@@ -102,9 +114,11 @@ class AppointmentCreate extends Component
                 'startTime' => 'required',
             ]);
 
-            $startTime = Carbon::parse($this->date . ' ' . $this->startTime);
+            $startTime = Carbon::parse($this->date . ' ' . $this->startTime, 'America/Denver');
 
-            $duration = $this->appointmentTypes->firstWhere('id', $this->appointmentTypeId)['duration'];
+            $appt_type = $this->appointmentTypes->firstWhere('id', $this->appointmentTypeId);
+
+            $duration = $appt_type['duration'];
 
             $appointment = Appointment::create([
                 'employee_id' => $this->doctorId,
@@ -118,6 +132,28 @@ class AppointmentCreate extends Component
 
             if (! $appointment) {
                 throw new \Exception('Error al crear la cita');
+            }
+
+            $user = Auth::user();
+            if (!empty($user->google_id)) {
+                $eventData = [
+                    'summary' => $appt_type['name'] . ' con '  . $appointment->patient->first_name . ' ' . $appointment->patient->last_name,
+                    'description' => 'Cita médica con el doctor: ' . $appointment->employee->name,
+                    'start' => [
+                        'dateTime' => $startTime->toIso8601String(),
+                        'timeZone' => 'America/Denver',
+                    ],
+                    'end' => [
+                        'dateTime' => $startTime->copy()->addMinutes($duration)->toIso8601String(),
+                        'timeZone' => 'America/Denver',
+                    ],
+                ];
+                $event = $this->calendarEventService->createEvent($eventData);
+                if (!$event) {
+                    throw new \Exception('Error al crear el evento en Google Calendar');
+                }
+                $appointment->event_id = $event->id;
+                $appointment->save();
             }
 
             // $this->toast('success', 'Cita creada correctamente', redirectTo: route('web.appointments.index'));

@@ -4,6 +4,8 @@ namespace App\Livewire\Appointments;
 
 use App\Enums\AppointmentStatus;
 use App\Models\Appointment;
+use App\Services\CalendarEventService;
+use App\Services\GoogleCalendarService;
 use App\Traits\AddsToast;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -21,8 +23,26 @@ class AppointmentIndex extends Component
 
     public $doctors;
 
+    protected GoogleCalendarService $googleCalendarService;
+
+    public function boot()
+    {
+        $this->googleCalendarService = new GoogleCalendarService(route('appointments.index'));
+    }
+
     public function mount()
     {
+        if (request()->has('code')) {
+            try {
+                $user = $this->googleCalendarService->connect(request()->get('code'));
+                $this->addToast('success', 'Cuenta de Google conectada exitosamente.', 'success', true);
+                $this->redirect(AppointmentIndex::class);
+            } catch (\Exception $e) {
+                $this->addToast('error', 'Error al conectar con Google');
+                return;
+            }
+        }
+
         $this->doctorId = Auth::user()->id;
     }
 
@@ -80,6 +100,21 @@ class AppointmentIndex extends Component
         })->toArray();
 
         return $events;
+    }
+
+    public function connectGoogle()
+    {
+        if (!Auth::check()) {
+            $this->addToast('error', 'Debe iniciar sesión para conectar su cuenta de Google.');
+            return;
+        }
+
+        try {
+            $authUrl = $this->googleCalendarService->getAuthUrl();
+            return redirect()->away($authUrl);
+        } catch (\Exception $e) {
+            $this->addToast('error', 'Error al conectar con Google: ' . $e->getMessage());
+        }
     }
 
     public function createAppointment($date)
