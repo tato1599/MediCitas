@@ -25,21 +25,24 @@ class Create extends Component
         'dob' => 'date|nullable',
     ];
 
-    public function store() {
-        $this->validate();
+    public function store()
+{
+    $this->validate();
 
-        Patient::create([
-            'first_name' => $this->first_name,
-            'last_name' => $this->last_name,
-            'email' => $this->email ?? null,
-            'phone' => $this->phone ?? null,
-            'dob' => $this->dob ?? null,
-        ]);
+    Patient::create([
+        'first_name' => $this->first_name,
+        'last_name' => $this->last_name,
+        'email' => $this->email ?? null,
+        'phone' => $this->phone ?? null,
+        'dob' => $this->dob ?? null,
+        'team_id' => auth()->user()->current_team_id, // Asumiendo que el equipo actual es el del usuario autenticado
+    ]);
 
-        $this->addToast('Paciente creado', 'El paciente fue guardado exitosamente', 'success', true);
-        $this->reset(['first_name', 'last_name', 'email', 'phone', 'dob']);
-        return redirect()->route('patients.index');
-    }
+    $this->addToast('Paciente creado', 'El paciente fue guardado exitosamente', 'success', true);
+    $this->reset(['first_name', 'last_name', 'email', 'phone', 'dob']);
+    return redirect()->route('patients.index');
+}
+
 
 
 }

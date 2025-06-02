@@ -28,8 +28,16 @@ final class PatientsTable extends PowerGridComponent
 
     public function datasource(): Builder
     {
-        return Patient::query();
+        $user = auth()->user();
+
+        if (!$user || !$user->currentTeam) {
+            abort(403, 'No autorizado');
+        }
+
+        return Patient::query()
+            ->where('team_id', $user->currentTeam->id);
     }
+
 
     public function relationSearch(): array
     {
