@@ -4,8 +4,10 @@ namespace App\Livewire\Appointments;
 
 use App\Enums\AppointmentStatus;
 use App\Models\Appointment;
+use App\Services\CalendarEventService;
 use App\Traits\AddsToast;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
@@ -27,6 +29,16 @@ class AppointmentUpdate extends Component
     public $current_status;
 
     public $real_end_time;
+
+    protected CalendarEventService $calendarEventService;
+
+    public function boot()
+    {
+        $user = Auth::user();
+        if (!empty($user->google_id)) {
+            $this->calendarEventService = new CalendarEventService();
+        }
+    }
 
     public function mount($appointment)
     {
@@ -81,6 +93,12 @@ class AppointmentUpdate extends Component
                 $this->appointment->real_end_time = Carbon::parse($this->appointment->start_time);
             }
             $this->appointment->save();
+            $user = Auth::user();
+            if (!empty($user->google_id) && !empty($this->appointment->event_id)) {
+                if (in_array($status, [AppointmentStatus::REALIZADO->value, AppointmentStatus::AUSENTE, AppointmentStatus::CANCELADO->value])) {
+                    $this->calendarEventService->deleteEvent($this->appointment->event_id);
+                }
+            }
             // $this->toast('success', 'Estado actualizado correctamente', redirectTo: route('web.appointments.index'));
             $this->addToast('Éxito', 'Estado actualizado correctamente', 'success', true);
             $this->redirect(route('appointments.index'));
@@ -125,6 +143,31 @@ class AppointmentUpdate extends Component
             $newAppointment->status = AppointmentStatus::PROGRAMADO->value;
             $newAppointment->save();
             $this->appointment->save();
+
+            $user = Auth::user();
+            if (!empty($user->google_id)) {
+                $eventData = [
+                    'summary' => $newAppointment->appointmentType->name . ' con ' . $newAppointment->patient->first_name . ' ' . $newAppointment->patient->last_name,
+                    'description' => 'Cita médica con el doctor: ' . $newAppointment->employee->name,
+                    'start' => [
+                        'dateTime' => $date->toIso8601String(),
+                        'timeZone' => 'America/Denver',
+                    ],
+                    'end' => [
+                        'dateTime' => $date->addMinutes($newAppointment->duration)->toIso8601String(),
+                        'timeZone' => 'America/Denver',
+                    ],
+                ];
+                $event = $this->calendarEventService->createEvent($eventData);
+                if (!$event) {
+                    throw new \Exception('Error al crear el evento en Google Calendar');
+                }
+                $newAppointment->event_id = $event->id;
+                $newAppointment->save();
+                if (!empty($this->appointment->event_id)) {
+                    $this->calendarEventService->deleteEvent($this->appointment->event_id);
+                }
+            }
             DB::commit();
 
             $this->addToast('Éxito', 'Cita reprogramada correctamente', 'success', true);

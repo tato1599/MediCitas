@@ -1,4 +1,7 @@
 <div class="p-6 ">
+    <x-button wire:click="connectGoogle">
+        Conectar con Google
+    </x-button>
 
     <div id="calendar" wire:ignore class="mt-4 mb-8 mr-4 ml-4"></div>
 
