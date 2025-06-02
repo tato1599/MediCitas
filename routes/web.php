@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ScheduleController;
-use App\Livewire\Patients\Create;
+use App\Livewire\Appointments\AppointmentCreate;
+use App\Livewire\Appointments\AppointmentIndex;
+use App\Livewire\Appointments\AppointmentUpdate;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -27,5 +29,11 @@ Route::middleware([
     Route::prefix('schedules')->group(function () {
         Route::get('/index', [ScheduleController::class, 'index'])->name('schedules.index');
         // Route::get('/create', [PatientController::class, 'create'])->name('schedules.create');
+    });
+
+    Route::prefix('appointments')->group(function () {
+        Route::get('/', AppointmentIndex::class)->name('appointments.index');
+        Route::get('/create', AppointmentCreate::class)->name('appointments.create');
+        Route::get('/update/{appointment}', AppointmentUpdate::class)->name('appointments.update');
     });
 });
