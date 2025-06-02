@@ -25,31 +25,11 @@
                             <a href="https://flowbite.com" class="flex items-center lg:justify-center lg:order-2">
                                 <img src="https://flowbite.com/docs/images/logo.svg" class="mr-3 h-6 sm:h-9"
                                     alt="Flowbite Logo" />
-                                <span class="self-center text-xl font-semibold whitespace-nowrap ">Flowbite</span>
+                                <span class="self-center text-xl font-semibold whitespace-nowrap ">Medicitas</span>
                             </a>
                             <div class="flex col-span-2 justify-end items-center lg:order-3 lg:col-span-1">
-                                <a href="#"
-                                    class="hidden mr-2 text-sm font-medium text-gray-500 hover:underline  lg:inline">
-                                    Comienza ahora
-                                </a>
-                                <a href="#"
-                                    class="hidden items-center p-2 text-sm font-medium text-gray-500 rounded-lg lg:inline-flex  hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 :bg-gray-700 focus:outline-none :ring-gray-800">
-                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd"
-                                            d="M4.083 9h1.946c.089-1.546.383-2.97.837-4.118A6.004 6.004 0 004.083 9zM10 2a8 8 0 100 16 8 8 0 000-16zm0 2c-.076 0-.232.032-.465.262-.238.234-.497.623-.737 1.182-.389.907-.673 2.142-.766 3.556h3.936c-.093-1.414-.377-2.649-.766-3.556-.24-.56-.5-.948-.737-1.182C10.232 4.032 10.076 4 10 4zm3.971 5c-.089-1.546-.383-2.97-.837-4.118A6.004 6.004 0 0115.917 9h-1.946zm-2.003 2H8.032c.093 1.414.377 2.649.766 3.556.24.56.5.948.737 1.182.233.23.389.262.465.262.076 0 .232-.032.465-.262.238-.234.498-.623.737-1.182.389-.907.673-2.142.766-3.556zm1.166 4.118c.454-1.147.748-2.572.837-4.118h1.946a6.004 6.004 0 01-2.783 4.118zm-6.268 0C6.412 13.97 6.118 12.546 6.03 11H4.083a6.004 6.004 0 002.783 4.118z"
-                                            clip-rule="evenodd"></path>
-                                    </svg>
-                                </a>
-                                <a href="tel:5541251234"
-                                    class="hidden items-center p-2 text-sm font-medium text-gray-500 rounded-lg lg:inline-flex  hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 :bg-gray-700 focus:outline-none :ring-gray-800">
-                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z">
-                                        </path>
-                                    </svg>
-                                </a>
+
+
                                 @if (Route::has('login'))
                                     <nav class="-mx-3 flex flex-1 justify-end">
                                         @auth
@@ -71,7 +51,7 @@
                                 <button data-collapse-toggle="mobile-menu-2" type="button"
                                     class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200  :bg-gray-700 :ring-gray-600"
                                     aria-controls="mobile-menu-2" aria-expanded="false">
-                                    <span class="sr-only">Open main menu</span>
+                                    <span class="sr-only">Abrir menú principal</span>
                                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd"
@@ -95,7 +75,7 @@
                                             aria-current="page">Inicio</a>
                                     </li>
                                     <li>
-                                        <a href="/#Recursos"
+                                        <a href="/#recursos"
                                             class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0  lg::text-white :bg-gray-700 :text-white lg::bg-transparent ">
                                             Recursos
                                         </a>
@@ -104,12 +84,6 @@
                                         <a href="/#precios"
                                             class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0  lg::text-white :bg-gray-700 :text-white lg::bg-transparent ">
                                             Precios
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#"
-                                            class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0  lg::text-white :bg-gray-700 :text-white lg::bg-transparent ">
-                                            Soporte
                                         </a>
                                     </li>
                                 </ul>
@@ -129,7 +103,7 @@
                                 complicaciones. Desde la programación hasta el seguimiento, tenemos todo cubierto para
                                 que puedas centrarte en lo que realmente importa: tu negocio.
                             </p>
-                            <a href="#"
+                            <a href="{{ route('checkout') }}"
                                 class="inline-flex items-center justify-center px-5 py-3 mr-3 text-basic font-medium text-center  rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 ">
                                 Empezar
                                 <svg class="w-5 h-5 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20"
@@ -139,10 +113,7 @@
                                         clip-rule="evenodd"></path>
                                 </svg>
                             </a>
-                            <a href="#"
-                                class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100   ">
-                                Habla con nuestro equipo de ventas
-                            </a>
+
                         </div>
                         <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
                             <img class="rounded-lg border-2 border-basic"
@@ -152,11 +123,11 @@
                     </div>
                 </section>
 
-                <x-resources id="Recursos" name="recursos" />
+                <x-resources id="recursos" name="recursos" />
 
-
-                <x-pricing id="precios" name="pricing" />
-
+                <section id="precios" >
+                <x-pricing  />
+                </section>
 
                 <x-footer />
 
