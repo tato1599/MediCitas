@@ -37,6 +37,7 @@ class GoogleCalendarService
     public function connect(string $code): User
     {
         $token = $this->client->fetchAccessTokenWithAuthCode($code);
+        dd($token, $code);
         $this->client->setAccessToken($token);
         // dd($token);
 
