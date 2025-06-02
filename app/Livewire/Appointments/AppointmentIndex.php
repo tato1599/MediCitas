@@ -113,6 +113,7 @@ class AppointmentIndex extends Component
             $authUrl = $this->googleCalendarService->getAuthUrl();
             return redirect()->away($authUrl);
         } catch (\Exception $e) {
+            dd($e);
             $this->addToast('error', 'Error al conectar con Google: ' . $e->getMessage());
         }
     }
